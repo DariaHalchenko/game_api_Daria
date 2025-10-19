@@ -86,6 +86,44 @@ paths:
             operationId: id
             summary: Get full details of a game
             description: Returns full details of a given id game
+        put:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/game-update'
+                        examples:
+                            Update a game:
+                                value:
+                                    name: Super Mario
+                                    price: 59.99
+            tags:
+                - update
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/game-update'
+                            examples:
+                                The game has been updated:
+                                    value:
+                                        _id: 64f1234567890abcde123456
+                                        name: Super Mario
+                                        price: 59.99
+                    description: Game updated successfully
+                '404':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/error'
+                            examples:
+                                Game not found:
+                                    value:
+                                        message: Game not found
+                    description: Game not found
+            summary: Update a game by ID
+            description: 'Updates the details of a game identified by its ID. '
         delete:
             tags:
                 - delete
@@ -147,3 +185,16 @@ components:
                     type: string
             example:
                 id: 1
+        game-update:
+            title: Root Type for game-update
+            description: ''
+            type: object
+            properties:
+                name:
+                    type: string
+                price:
+                    format: float
+                    type: number
+            example:
+                name: Super Mario
+                price: 59.99

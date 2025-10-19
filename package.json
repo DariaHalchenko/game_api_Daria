@@ -19,6 +19,7 @@
   "homepage": "https://github.com/DariaHalchenko/game_api_Daria#readme",
   "dependencies": {
     "express": "^5.1.0",
+    "mongoose": "^8.19.1",
     "swagger-ui-express": "^5.0.1",
     "yamljs": "^0.3.0"
   }
