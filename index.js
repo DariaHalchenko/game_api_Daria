@@ -11,12 +11,14 @@ const uri = 'mongodb+srv://User:1234@cluster0.5qdlijf.mongodb.net/games-api?retr
     .catch((error) => console.error('Error connecting to MongoDB Atlas:', error));
 
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const port = 8080
 const swaggerUi = require('swagger-ui-express')
 const yamljs = require('yamljs')
 const swaggerDocument = yamljs.load('./docs/swagger.yaml');
 
+app.use(cors())
 app.use(express.json())
 
 app.get('/games', async (req, res) => {
