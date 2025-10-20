@@ -86,5 +86,37 @@ const vue = Vue.createApp({
                 alert(error.message);
             }
         },
+        // mängu uuendamine (PUT)
+        async updateGame() {
+            try {
+                //saadame PUT-päringu
+                const res = await fetch(`http://localhost:8080/games/${this.gameInModal.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        //andmed JSON-vormingus
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(this.gameInModal)
+                });
+                //päringu edukuse kontrollimine
+                if (!res.ok) {
+                    const errorData = await res.json();
+                    alert(errorData.message);
+                    return;
+                }
+                const updatedGame = await res.json();
+                //uuendame mängude nimekirja  
+                const index = this.games.findIndex(g => g.id === updatedGame.id);
+                if (index !== -1) {
+                    this.games.splice(index, 1, updatedGame);
+                }
+                alert('Game updated successfully!');
+                const modal = bootstrap.Modal.getInstance(document.getElementById('gameInfoModal'));
+                modal.hide();
+            } 
+            catch (error) {
+                alert(error.message);
+            }
+        }
     }
 }).mount('#app');
