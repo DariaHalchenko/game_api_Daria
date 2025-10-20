@@ -18,30 +18,53 @@ const vue = Vue.createApp({
             let gameInfoModal = new bootstrap.Modal(document.getElementById('gameInfoModal'), {});
             gameInfoModal.show();
         },
+        //uue mängu lisamine
         async addGame() {
             try {
-                const response = await fetch('http://localhost:8080/games', {
+                //saadame POST-päringu uue mängu lisamiseks
+                const res = await fetch('http://localhost:8080/games', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        //andmed JSON-vormingus
+                        'Content-Type': 'application/json' 
                     },
                     body: JSON.stringify(this.newGame)
                 });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    alert('Error: ' + errorData.message);
+                //päringu edukuse kontrollimine
+                if (!res.ok) {
+                    const errorData = await res.json();
+                    alert(errorData.message);
                     return;
                 }
-
-                const addedGame = await response.json();
-                this.games.push(addedGame); // добавляем в список игр
-
-                // Очистка формы
+                //saame andmed lisatud mängu kohta
+                const addedGame = await res.json();
+                this.games.push(addedGame); //lisame uue mängu mängude nimekirja
+                // vormi puhastamine
                 this.newGame.name = '';
                 this.newGame.price = '';
-            } catch (error) {
-                alert('Failed to add game: ' + error.message);
+            } 
+            catch (error) {
+                alert(error.message);
+            }
+        },
+        //mängu eemaldamine ID järgi
+        async deleteGame(id) {
+            try {
+                //saadame DELETE-päringu
+                const res = await fetch(`http://localhost:8080/games/${id}`, {
+                    method: 'DELETE'
+                });
+                //päringu edukuse kontrollimine
+                if (!res.ok) {
+                    const errorData = await res.json();
+                    alert(errorData.message);
+                    return;
+                }
+                //eemaldame mängu massiivist 
+                this.games = this.games.filter(game => game.id !== id);
+            } 
+            catch (error) {
+                alert(error.message);
             }
         }
     }

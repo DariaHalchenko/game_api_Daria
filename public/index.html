@@ -19,10 +19,13 @@
         <tr>
             <th>Name</th>
             <th>Price (€)</th>
+            <th>Actions</th>
         </tr>
         <tr v-for="game in games">
             <td @click="getGame(game.id)">{{ game.name }}</td>
             <td>{{ game.price }}</td>
+            <!-- mängu eemaldamine ID järgi -->
+            <td><button class="btn btn-danger btn-sm" @click="deleteGame(game.id)">Delete</button></td>
         </tr>
     </table>
     <div id="gameInfoModal" class="modal" tabindex="-1">
