@@ -6,7 +6,9 @@ const vue = Vue.createApp({
             newGame: {
                 name: '',
                 price: ''
-            }
+            },
+            searchId: '',
+            foundGame: null
         }
     },
     async created() {
@@ -66,6 +68,23 @@ const vue = Vue.createApp({
             catch (error) {
                 alert(error.message);
             }
-        }
+        },
+        // otsib mängu ID järgi
+        async searchGameById() {
+            try {
+                const res = await fetch(`http://localhost:8080/games/${this.searchId}`);
+                //päringu edukuse kontrollimine
+                if (!res.ok) {
+                    const errorData = await res.json();
+                    alert(errorData.message);
+                    this.foundGame = null;
+                    return;
+                }
+                this.foundGame = await res.json();
+            } 
+            catch (error) {
+                alert(error.message);
+            }
+        },
     }
 }).mount('#app');

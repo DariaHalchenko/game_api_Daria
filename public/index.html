@@ -56,23 +56,38 @@
             </div>
         </div>
     </div>
-    <!-- Uue mängu lisamise vorm -->
-    <div class="addgame">
-        <h3>Add new Game</h3>
-        <form @submit.prevent="addGame" class="row g-3">
-                <label for="name" class="form-label">Name: </label>
-                <input type="text" v-model="newGame.name" class="form-control" id="name" required>
-                <label for="price" class="form-label">Price (€): </label>
-                <input type="number" v-model="newGame.price" class="form-control" id="price" step="0.01" required>
+    <div class="form-container">
+        <div class="card-form">
+            <!-- Uue mängu lisamise vorm -->
+            <h3>Add new Game</h3>
+            <form @submit.prevent="addGame">
+                <label for="name">Name:</label>
+                <input type="text" v-model="newGame.name" id="name" required>
+                <label for="price">Price (€):</label>
+                <input type="number" v-model="newGame.price" id="price" step="0.01" required>
                 <button type="submit" class="btn btn-success">Add Game</button>
-        </form>
+            </form>
+        </div>
+        <div class="card-form">
+            <!-- Mängu otsimine ID järgi -->
+            <h3>Search for a game by ID</h3>
+            <form @submit.prevent="searchGameById">
+                <input type="number" v-model="searchId" id="searchId" placeholder="Enter game ID" required>
+                <button type="submit" class="btn btn-primary">Search</button>
+                <!-- Leitud mängu kuvamine -->
+                <div v-if="foundGame" class="result-card">
+                    <p><strong>ID:</strong> {{ foundGame.id }}</p>
+                    <p><strong>Name:</strong> {{ foundGame.name }}</p>
+                    <p><strong>Price:</strong> {{ foundGame.price }} €</p>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 <script src="https://unpkg.com/vue@3.2.47/dist/vue.global.js"></script>
-
 <script src="rest-client.js"></script>
 </body>
 </html>

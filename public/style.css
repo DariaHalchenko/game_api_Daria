@@ -4,35 +4,39 @@ body {
     font-family: Arial, sans-serif;
 }
 
-#gamesTable {
-    max-width: 600px;
-    margin: 0 auto 40px auto;
-    background-color: #ffffff;
+.form-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; 
+    flex-wrap: wrap; 
 }
 
-.addgame {
+.card-form {
+    flex: 1;
+    min-width: 400px;
     max-width: 500px;
-    margin: 0 auto;
-    padding: 20px 25px;
+    padding: 20px;
+    border-radius: 10px;
     background-color: #ffffff;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    height: 330px; 
 }
 
-.addgame h3 {
-    text-align: center;
-    margin-bottom: 20px;
+.card-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.addgame label {
-    margin-top: 10px;
-}
-
-.addgame button {
-    margin-top: 15px;
-}
-
-#gameInfoModal .modal-content {
-    background-color: #fdfdfd;
+.card-form input,
+.card-form button {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 8px;
+    margin: 0; 
 }
